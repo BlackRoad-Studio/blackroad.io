@@ -97,11 +97,29 @@ class BlackRoadAPI {
   }
 
   // AI Chat: Send message
+  // Messages containing @copilot, @lucidia, @blackboxprogramming, or @ollama
+  // are routed directly to the local Ollama instance, bypassing external providers.
   async chat(message, conversationId = null) {
     return this.request('/api/ai-chat/chat', {
       method: 'POST',
       body: JSON.stringify({ message, conversation_id: conversationId })
     });
+  }
+
+  // Direct Ollama chat (bypasses the backend entirely, calls Ollama from the browser)
+  async ollamaChat(message, model = 'llama3', history = []) {
+    const ollamaBase = 'http://localhost:11434';
+    const messages = [...history, { role: 'user', content: message }];
+    const response = await fetch(`${ollamaBase}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model, messages, stream: false })
+    });
+    if (!response.ok) {
+      throw new Error(`Ollama responded with ${response.status}`);
+    }
+    const data = await response.json();
+    return data.message?.content || '';
   }
 
   // AI Chat: List conversations

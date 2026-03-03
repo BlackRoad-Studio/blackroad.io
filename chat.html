@@ -115,12 +115,12 @@
   <div class="container">
     <div class="chat-messages" id="chatMessages">
       <div class="message assistant">
-        <strong>BlackRoad AI</strong>
-        <p>Hello! I'm powered by 30,000 AI agents. Ask me anything!</p>
+        <strong>BlackRoad AI (powered by Ollama)</strong>
+        <p>Hello! I'm running on your local Ollama instance. Use <strong>@ollama</strong>, <strong>@copilot</strong>, <strong>@lucidia</strong>, or <strong>@blackboxprogramming</strong> to talk directly to your local hardware — no external providers.</p>
       </div>
     </div>
     <div class="input-area">
-      <input type="text" id="messageInput" placeholder="Type your message..." />
+      <input type="text" id="messageInput" placeholder="Type your message… use @ollama, @copilot, @lucidia, or @blackboxprogramming to talk to your local Ollama" />
       <button onclick="sendMessage()" id="sendBtn">Send</button>
     </div>
   </div>
@@ -132,6 +132,10 @@
     const messageInput = document.getElementById('messageInput');
     const sendBtn = document.getElementById('sendBtn');
     let conversationId = null;
+    let ollamaHistory = [];
+
+    // @ mentions that route to local Ollama
+    const OLLAMA_MENTION = /@(copilot|lucidia|blackboxprogramming|ollama)\b/i;
 
     // Check auth status
     async function checkAuth() {
@@ -157,17 +161,27 @@
       sendBtn.disabled = true;
 
       // Show loading
-      const loadingId = addMessage('assistant', 'BlackRoad AI', '<div class="loading">Thinking...</div>');
+      const loadingId = addMessage('assistant', 'BlackRoad AI', '<div class="loading">Thinking…</div>');
+
+      const usesOllama = OLLAMA_MENTION.test(message);
 
       try {
-        const data = await window.blackroad.chat(message, conversationId);
-        conversationId = data.conversation_id;
-
-        // Remove loading message
-        document.getElementById(loadingId).remove();
-
-        // Add AI response
-        addMessage('assistant', 'BlackRoad AI', data.message || 'I received your message!');
+        let responseText;
+        if (usesOllama) {
+          // Route directly to local Ollama – no external provider
+          responseText = await window.blackroad.ollamaChat(message, 'llama3', ollamaHistory);
+          ollamaHistory.push({ role: 'user', content: message });
+          ollamaHistory.push({ role: 'assistant', content: responseText });
+          document.getElementById(loadingId).remove();
+          addMessage('assistant', '🦙 Ollama (local)', responseText);
+        } else {
+          // Route through backend (which also calls Ollama)
+          const data = await window.blackroad.chat(message, conversationId);
+          conversationId = data.conversation_id;
+          document.getElementById(loadingId).remove();
+          const label = data.provider === 'ollama' ? '🦙 Ollama (local)' : 'BlackRoad AI';
+          addMessage('assistant', label, data.message || 'I received your message!');
+        }
       } catch (error) {
         document.getElementById(loadingId).remove();
         addMessage('assistant', 'BlackRoad AI', 'Sorry, I encountered an error. Please try again.');
