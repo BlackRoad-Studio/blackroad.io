@@ -14,12 +14,17 @@ import time
 from datetime import datetime, timedelta
 import os
 import asyncio
+import httpx
 
 # Configuration
 SECRET_KEY = os.getenv("SECRET_KEY", "blackroad-secret-key-change-in-production")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "sk_test_...")
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRATION_HOURS = 24
+
+# Ollama configuration – all AI requests go to local Ollama instance
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
 
 # Initialize FastAPI
 app = FastAPI(
@@ -165,6 +170,28 @@ async def get_current_user_info(user_id: Optional[str] = Depends(get_current_use
 
     raise HTTPException(status_code=404, detail="User not found")
 
+# Ollama helper – sends chat history to local Ollama and returns the reply
+async def _ollama_chat(messages: list) -> str:
+    """Call local Ollama instance. Returns the assistant reply text."""
+    try:
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            resp = await client.post(
+                f"{OLLAMA_BASE_URL}/api/chat",
+                json={"model": OLLAMA_MODEL, "messages": messages, "stream": False},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            return data.get("message", {}).get("content", "").strip()
+    except httpx.ConnectError:
+        return (
+            "⚠️ Ollama is not reachable at "
+            f"{OLLAMA_BASE_URL}. "
+            "Please make sure Ollama is running on your local machine."
+        )
+    except Exception as exc:  # noqa: BLE001
+        return f"⚠️ Ollama error: {exc}"
+
+
 # AI Chat endpoints
 @app.post("/api/ai-chat/chat")
 async def chat(message: ChatMessage, user_id: Optional[str] = Depends(get_current_user)):
@@ -186,8 +213,14 @@ async def chat(message: ChatMessage, user_id: Optional[str] = Depends(get_curren
     }
     conversations_db[conversation_id]["messages"].append(user_msg)
 
-    # Generate AI response (mock - replace with real LLM)
-    ai_response = f"I'm BlackRoad OS. You said: '{message.message}'. I have 30,000 agents ready to help!"
+    # Build conversation history for Ollama (exclude timestamp field)
+    history = [
+        {"role": m["role"], "content": m["content"]}
+        for m in conversations_db[conversation_id]["messages"]
+    ]
+
+    # Route to Ollama – local hardware, no external providers
+    ai_response = await _ollama_chat(history)
 
     ai_msg = {
         "role": "assistant",
@@ -199,7 +232,8 @@ async def chat(message: ChatMessage, user_id: Optional[str] = Depends(get_curren
     return {
         "conversation_id": conversation_id,
         "message": ai_response,
-        "messages": conversations_db[conversation_id]["messages"]
+        "messages": conversations_db[conversation_id]["messages"],
+        "provider": "ollama",
     }
 
 @app.get("/api/ai-chat/conversations")
