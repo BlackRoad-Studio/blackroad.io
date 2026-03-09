@@ -1,0 +1,73 @@
+name: Urgent – Cross-Repo Deploy Indexing
+
+# Manually triggered to create an urgent tracking issue in the
+# BlackRoad-OS-Inc org when the full cross-repo workflow deployment
+# cannot be executed from a single repository.
+on:
+  workflow_dispatch:
+    inputs:
+      repos:
+        description: 'Comma-separated list of repo slugs to index (e.g. org/repo1,org/repo2)'
+        required: false
+        default: ''
+
+jobs:
+  create-urgent-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          # Requires a PAT stored as BLACKROAD_ORG_TOKEN with repo + project scope
+          # on the BlackRoad-OS-Inc org.
+          github-token: ${{ secrets.BLACKROAD_ORG_TOKEN || secrets.GITHUB_TOKEN }}
+          script: |
+            const repos = `${{ inputs.repos }}` || '(all BlackRoad.io repos)';
+            const body = [
+              '## 🚨 URGENT: Cross-Repo Workflow Deployment & Indexing',
+              '',
+              '**Priority:** Production-scale / High-ROI',
+              '**Requested by:** blackroad.io CI — ' + new Date().toISOString(),
+              '',
+              '### What needs to happen',
+              '1. Deploy the E2E Stripe + Clerk workflow (`e2e.yml`) to every BlackRoad.io repository.',
+              '2. Ensure all request routing returns to the **BlackRoad-OS-Inc** organization.',
+              '3. Verify Stripe and Clerk secrets are set in each target repo.',
+              '4. Index the following repos for the project board:',
+              '   - ' + repos.split(',').join('\n   - '),
+              '',
+              '### Automation gap',
+              'This issue was auto-created because GitHub Actions cannot push workflow files',
+              'to other repositories without elevated PAT permissions.',
+              'A human with org-admin access must run:',
+              '```bash',
+              '# Example – copy e2e.yml to every repo in the org',
+              'gh repo list BlackRoad-OS-Inc --json nameWithOwner -q ".[].nameWithOwner" | \\',
+              '  xargs -I{} gh api repos/{}/contents/.github/workflows/e2e.yml \\',
+              '  --method PUT --field message="chore: add E2E Stripe+Clerk workflow" \\',
+              '  --field content=$(base64 < .github/workflows/e2e.yml | tr -d "\\n")',
+              '```',
+              '',
+              '### References',
+              '- Source workflow: https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/blob/main/.github/workflows/e2e.yml',
+              '- Project board: https://github.com/orgs/BlackRoad-OS-Inc/projects/1',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: 'BlackRoad-OS-Inc',
+              repo:  'blackroad.io',
+              title: '🚨 URGENT: Deploy E2E workflows + index all BlackRoad.io repos',
+              body,
+              labels: ['urgent', 'deployment', 'stripe', 'clerk'],
+            }).catch(async (err) => {
+              // Fallback: create in the current repo if org repo is unreachable
+              console.warn('Could not create in BlackRoad-OS-Inc, falling back:', err.message);
+              await github.rest.issues.create({
+                ...context.repo,
+                title: '🚨 URGENT: Deploy E2E workflows + index all BlackRoad.io repos',
+                body,
+                labels: [],
+              });
+            });

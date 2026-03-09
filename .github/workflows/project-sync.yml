@@ -10,5 +10,5 @@ jobs:
     steps:
       - uses: actions/add-to-project@v1
         with:
-          project-url: https://github.com/users/blackboxprogramming/projects/8
+          project-url: https://github.com/orgs/BlackRoad-OS-Inc/projects/1
           github-token: ${{ secrets.GITHUB_TOKEN }}
