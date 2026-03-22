@@ -630,7 +630,7 @@
         <h1 class="doc-title">What is BlackRoad OS</h1>
         <p class="doc-lead">Sovereign infrastructure for autonomous AI. A complete operating system built on Raspberry Pis, WireGuard tunnels, and local-first inference -- no cloud dependencies, no vendor lock-in.</p>
 
-        <p class="doc-p">BlackRoad OS is a self-hosted platform that combines a fleet of Raspberry Pi nodes with a WireGuard mesh network, local AI inference via Ollama, sovereign Git hosting through Gitea, and a suite of developer tools -- all orchestrated from a single Mac workstation. The system runs 35 AI agents across 5 Pi nodes and 2 cloud droplets, serving 151 domains through a Caddy TLS edge, with 52 TOPS of neural processing power from dual Hailo-8 accelerators.</p>
+        <p class="doc-p">BlackRoad OS is a self-hosted platform that combines a fleet of Raspberry Pi nodes with a WireGuard mesh network, local AI inference via Ollama, sovereign Git hosting through Gitea, and a suite of developer tools -- all orchestrated from a single Mac workstation. The system runs 200 AI agents across 5 Pi nodes and 2 cloud droplets, serving 151 domains through a Caddy TLS edge, with 26 TOPS of neural processing power from Hailo-8 accelerator.</p>
 
         <p class="doc-p">Unlike traditional cloud platforms, BlackRoad OS follows a zero-dependency philosophy: every service that can be self-hosted is self-hosted. Git repositories live on Gitea instead of GitHub. Object storage runs on MinIO instead of S3. DNS resolves through PowerDNS instead of Cloudflare. The only external dependencies are Stripe for payment processing and GoDaddy for domain registration. Everything else runs on hardware you own.</p>
 
@@ -791,7 +791,7 @@ Lucidia  .38   OK  22ms</span></pre>
             <button class="doc-code-copy" onclick="copyCode(this)">Copy</button>
           </div>
 <pre><span class="prompt">$</span> blackroad fleet status
-<span class="output">Fleet: 5 nodes | 3 online | 52 TOPS
+<span class="output">Fleet: 5 nodes | 3 online | 26 TOPS
 Memory: 1,383 entries | Codex: 340 solutions
 Agents: 35 registered | 12 active</span></pre>
         </div>
@@ -869,7 +869,7 @@ Worker live at https://my-worker.blackroad.io</span></pre>
         <p class="doc-p">Each agent has an identity, a set of capabilities, and access to the shared memory system. Agents communicate via NATS v2.12.3 pub/sub channels and the RoundTrip sovereign chat platform. They can claim tasks from a shared marketplace, broadcast learnings, and hand off work between sessions.</p>
 
         <h2 class="doc-h2">Agent Registry</h2>
-        <p class="doc-p">The agent registry tracks all 35 agents. Each agent is assigned to a fleet node and has a defined role.</p>
+        <p class="doc-p">The agent registry tracks all 200 agents. Each agent is assigned to a fleet node and has a defined role.</p>
 
         <div class="doc-table-wrap">
           <table class="doc-table">
@@ -931,7 +931,7 @@ Worker live at https://my-worker.blackroad.io</span></pre>
             <tbody>
               <tr><td>Alice</td><td><code>.49</code></td><td>Gateway, Pi-hole, PostgreSQL, Qdrant, Redis, nginx</td><td>Pi 4</td></tr>
               <tr><td>Cecilia</td><td><code>.96</code></td><td>Ollama (16 models), MinIO (4 buckets), PostgreSQL, InfluxDB</td><td>Pi 4 + Hailo-8</td></tr>
-              <tr><td>Octavia</td><td><code>.101</code></td><td>Gitea (239 repos), 15 Workers, PaaS, NATS, Docker</td><td>Pi 4 + Hailo-8</td></tr>
+              <tr><td>Octavia</td><td><code>.101</code></td><td>Gitea (629 repos), 15 Workers, PaaS, NATS, Docker</td><td>Pi 4 + Hailo-8</td></tr>
               <tr><td>Aria</td><td><code>.98</code></td><td>Worker node</td><td>Pi 4</td></tr>
               <tr><td>Lucidia</td><td><code>.38</code></td><td>334 web apps, nginx, PowerDNS, Ollama, GitHub runners</td><td>Pi 4</td></tr>
               <tr><td>Gematria</td><td>DO nyc3</td><td>Caddy TLS edge (151 domains), Ollama (6 models), PowerDNS</td><td>Droplet</td></tr>
@@ -956,7 +956,7 @@ Worker live at https://my-worker.blackroad.io</span></pre>
         </div>
 
         <h2 class="doc-h2">Hailo-8 Accelerators</h2>
-        <p class="doc-p">Cecilia and Octavia each have a Hailo-8 NPU providing 26 TOPS of neural processing (52 TOPS total). These accelerate on-device inference for vision models and edge AI tasks without requiring cloud GPU instances.</p>
+        <p class="doc-p">Cecilia and Octavia each have a Hailo-8 NPU providing 26 TOPS of neural processing (26 TOPS total). These accelerate on-device inference for vision models and edge AI tasks without requiring cloud GPU instances.</p>
       </div>
 
       <!-- ════════════════════════════════════════════ -->
@@ -1127,10 +1127,10 @@ RESET=<span class="string">'\033[0m'</span>
       <!-- ════════════════════════════════════════════ -->
       <div class="doc-section" id="section-roadcode">
         <h1 class="doc-title">RoadCode</h1>
-        <p class="doc-lead">Self-hosted Git platform. Gitea on Octavia with 239 repositories across 8 organizations.</p>
+        <p class="doc-lead">Self-hosted Git platform. Gitea on Octavia with 629 repositories across 8 organizations.</p>
 
         <h2 class="doc-h2">Overview</h2>
-        <p class="doc-p">RoadCode is BlackRoad's fork of Gitea, running on Octavia at port 3100. It serves as the primary Git host -- GitHub is treated as a mirror. The <span class="doc-inline-code">sync-downstream --push</span> command pushes from the operator repo to 17 GitHub organizations (47 repos synced).</p>
+        <p class="doc-p">RoadCode is BlackRoad's fork of Gitea, running on Octavia at port 3100. It serves as the primary Git host -- GitHub is treated as a mirror. The <span class="doc-inline-code">sync-downstream --push</span> command pushes from the operator repo to 17 GitHub organizations (629 repos synced).</p>
 
         <h2 class="doc-h2">Road Fleet Forks</h2>
         <p class="doc-p">12 of 13 open-source dependencies have been forked into Gitea with road-themed names, totaling 2.7GB+ of sovereign source code:</p>
@@ -1185,7 +1185,7 @@ RESET=<span class="string">'\033[0m'</span>
 
         <p class="doc-p"><strong>Cecilia (.96)</strong> is the inference node. Runs Ollama with 16 loaded models, MinIO with 4 buckets (120MB), PostgreSQL, InfluxDB for time-series metrics, and a Hailo-8 NPU (26 TOPS).</p>
 
-        <p class="doc-p"><strong>Octavia (.101)</strong> is the platform node. Hosts Gitea with 239 repos across 8 orgs, 15 self-hosted Workers on ports 9001-9015, the PaaS deploy API on port 3500, NATS for pub/sub, Docker for container orchestration, and a second Hailo-8 NPU.</p>
+        <p class="doc-p"><strong>Octavia (.101)</strong> is the platform node. Hosts Gitea with 629 repos across 8 orgs, 15 self-hosted Workers on ports 9001-9015, the PaaS deploy API on port 3500, NATS for pub/sub, Docker for container orchestration, and a second Hailo-8 NPU.</p>
 
         <p class="doc-p"><strong>Aria (.98)</strong> is a worker node available for overflow compute tasks.</p>
 
@@ -1257,8 +1257,8 @@ RESET=<span class="string">'\033[0m'</span>
               <tr><th>Service</th><th>Self-Hosted On</th><th>Replaces</th></tr>
             </thead>
             <tbody>
-              <tr><td>Git (239 repos)</td><td>Gitea, Octavia</td><td>GitHub</td></tr>
-              <tr><td>AI (52 TOPS)</td><td>Ollama, 4 nodes</td><td>OpenAI / Anthropic APIs</td></tr>
+              <tr><td>Git (629 repos)</td><td>Gitea, Octavia</td><td>GitHub</td></tr>
+              <tr><td>AI (26 TOPS)</td><td>Ollama, 4 nodes</td><td>OpenAI / Anthropic APIs</td></tr>
               <tr><td>Workers (15/15)</td><td>Octavia :9001-9015</td><td>Cloudflare Workers</td></tr>
               <tr><td>Object Storage</td><td>MinIO, Cecilia</td><td>Cloudflare R2 / AWS S3</td></tr>
               <tr><td>DNS</td><td>PowerDNS, Lucidia + Gematria</td><td>Cloudflare DNS</td></tr>

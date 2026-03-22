@@ -360,7 +360,7 @@
       addLine('  -------------------------', 'system');
       addLine('  Agents:       ' + (data.agents || data.total_agents || 35));
       addLine('  Nodes:        ' + (data.nodes || 7));
-      addLine('  Repos:        ' + (data.repos || data.total_repos || '275+'));
+      addLine('  Repos:        ' + (data.repos || data.total_repos || '629'));
       addLine('  Domains:      ' + (data.domains || 18));
       addLine('  Uptime:       ' + (data.uptime || '99.7%'));
       addLine('  Version:      ' + (data.version || 'v1.0.0'));
@@ -370,7 +370,7 @@
     } catch (e) {
       addLine('  Could not reach stats API. Showing cached data.', 'error');
       blank();
-      addLine('  Agents: 35 | Nodes: 7 | Repos: 275+ | Domains: 18');
+      addLine('  Agents: 35 | Nodes: 7 | Repos: 629 | Domains: 18');
       blank();
     }
   }
@@ -399,7 +399,7 @@
     }
     addLine('');
     addLine('  ... and 23 more agents across the fleet.', 'system');
-    addLine('  Total: 35 agents', 'info');
+    addLine('  Total: 200 agents', 'info');
     blank();
   }
 
@@ -445,11 +445,11 @@
     try {
       var data = cachedStats || await apiFetch(STATS_URL);
       cachedStats = data;
-      addLine('Repositories: ' + (data.repos || data.total_repos || '275+'));
+      addLine('Repositories: ' + (data.repos || data.total_repos || '629'));
       addLine('  Gitea (primary): 239 repos, 8 orgs');
       addLine('  GitHub (mirror): 68 active repos');
     } catch (e) {
-      addLine('Repositories: 275+ (cached)');
+      addLine('Repositories: 629 (cached)');
     }
   }
 
@@ -496,9 +496,9 @@
       ['Kernel',    'Linux 6.x aarch64 / Darwin 23.5.0'],
       ['Agents',    String(stats.agents || stats.total_agents || 35)],
       ['Nodes',     '7 (5 Pi + 2 DO)'],
-      ['Repos',     String(stats.repos || stats.total_repos || '275+')],
+      ['Repos',     String(stats.repos || stats.total_repos || '629')],
       ['Domains',   '18'],
-      ['Hailo',     '2x Hailo-8 = 52 TOPS'],
+      ['Hailo',     'Hailo-8 = 26 TOPS'],
       ['Storage',   'MinIO (S3) + PostgreSQL + Redis'],
       ['VPN',       'WireGuard mesh (12/12)'],
       ['Edge',      'Caddy TLS (151 domains)'],
@@ -569,7 +569,7 @@
     addLine('  "The Prompt Legend of All Time."', 'system');
     blank();
     addLine('  Sovereign AI. Local-first. Every device is a Roadie.', 'system');
-    addLine('  35 agents | 7 nodes | 275+ repos | 18 domains', 'system');
+    addLine('  200 agents | 7 nodes | 629 repos | 18 domains', 'system');
     blank();
   }
 
@@ -581,7 +581,7 @@
     addLine('  local-first infrastructure. Every device is a Roadie.');
     blank();
     addLine('  The fleet runs on Raspberry Pi nodes, DigitalOcean droplets,');
-    addLine('  and 2x Hailo-8 accelerators (52 TOPS). Self-hosted Git (Gitea),');
+    addLine('  and Hailo-8 accelerator (26 TOPS). Self-hosted Git (Gitea),');
     addLine('  self-hosted AI (Ollama), self-hosted DNS (PowerDNS), self-hosted');
     addLine('  TLS edge (Caddy), self-hosted object storage (MinIO), and a');
     addLine('  full WireGuard mesh connecting every node.');
@@ -599,8 +599,8 @@
       { text: '[boot] BlackRoad OS v1.0.0 kernel loading...', cls: 'system', delay: 80 },
       { text: '[boot] Initializing WireGuard mesh (12/12 peers)', cls: 'system', delay: 120 },
       { text: '[boot] Mounting fleet nodes: Alice, Octavia, Lucidia, Gematria, Anastasia', cls: 'system', delay: 100 },
-      { text: '[boot] Loading 35 agents into memory', cls: 'system', delay: 90 },
-      { text: '[boot] Hailo-8 accelerators online (52 TOPS)', cls: 'system', delay: 70 },
+      { text: '[boot] Loading 200 agents into memory', cls: 'system', delay: 90 },
+      { text: '[boot] Hailo-8 accelerator online (26 TOPS)', cls: 'system', delay: 70 },
       { text: '[boot] System ready. Welcome, Alexa.', cls: 'info', delay: 150 },
     ];
 
