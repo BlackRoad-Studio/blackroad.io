@@ -267,11 +267,11 @@
           <div class="stat-label">Nodes</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">52</div>
+          <div class="stat-value">26</div>
           <div class="stat-label">TOPS AI</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">35</div>
+          <div class="stat-value">200</div>
           <div class="stat-label">Agents</div>
         </div>
         <div class="stat-card">
@@ -297,12 +297,18 @@
             <h3>Alexa Louise Amundson</h3>
             <div class="founder-role">CEO & Founder</div>
             <p>
-              Finance &rarr; real estate &rarr; tech. FINRA Series 7/63/65.
-              Built BlackRoad OS from scratch on Raspberry Pi hardware at under $150/month infrastructure cost.
+              Former financial advisor (FINRA Series 7/63/65, Ameriprise Financial, Securian).
+              The same risk management and capital structure thinking that protects client portfolios
+              now protects BlackRoad's infrastructure: own the hardware, hold the reserve, eliminate counterparty risk.
             </p>
             <p>
-              Creator of the Amundson Sequence (G(n) = n<sup>(n+1)</sup>/(n+1)<sup>n</sup>),
-              verified across 536 tests on 4 nodes.
+              Built BlackRoad OS from scratch on Raspberry Pi hardware for $38/month.
+              Creator of the <a href="https://github.com/BlackRoad-OS-Inc/amundson-constant" style="color:var(--azure);">Amundson Framework</a>
+              (G(n) = n<sup>(n+1)</sup>/(n+1)<sup>n</sup>) — a new mathematical constant computed to 10 million digits
+              with 50+ verified identities connecting combinatorics, analysis, and physics.
+            </p>
+            <p>
+              <a href="/blog-quit-finance" style="color:var(--azure);">Read: Why I quit finance to build an operating system &rarr;</a>
             </p>
           </div>
         </div>
@@ -400,7 +406,7 @@
       </div>
 
       <div style="text-align: center; margin-top: var(--sp-md);">
-        <span class="tag"><span class="status-dot live"></span> 52 TOPS across 2x Hailo-8</span>
+        <span class="tag"><span class="status-dot live"></span> 26 TOPS Hailo-8 on Cecilia</span>
         <span class="tag" style="margin-left: var(--sp-sm);">WireGuard mesh &mdash; 12/12 links</span>
       </div>
     </div>
@@ -412,7 +418,7 @@
   <div class="cta-section">
     <h2>Pave Tomorrow.</h2>
     <p style="color: var(--subtle); margin-bottom: var(--sp-lg);">Your hardware. Your agents. Your road.</p>
-    <a href="/signup.html" class="btn-primary">Join the road &rarr;</a>
+    <a href="https://search.blackroad.io" class="btn-primary">Try It Free — No Signup &rarr;</a>
   </div>
 
   <!-- ── Footer ── -->
@@ -432,5 +438,6 @@
   </footer>
 
 <script>if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});</script>
+<script src="/_shared/feedback.js" defer></script>
 </body>
 </html>
