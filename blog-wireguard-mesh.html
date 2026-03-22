@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month — BlackRoad OS</title>
+<meta name="description" content="5 Raspberry Pis behind NAT + 2 cloud nodes. WireGuard hub-and-spoke mesh with full SSH access to every node from anywhere. Total VPN cost: one $6 droplet.">
+<meta name="author" content="Alexa Amundson">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How I Built a WireGuard Mesh Across 7 Nodes for $6/month">
+<meta property="og:description" content="Hub-and-spoke WireGuard connecting 5 Pis behind NAT to 2 cloud servers. Full SSH from anywhere.">
+<meta property="og:url" content="https://blackroad.io/blog-wireguard-mesh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.blackroad.io/brand/br-square-512.png">
+<meta property="og:image" content="https://images.blackroad.io/brand/br-square-512.png">
+<link rel="canonical" href="https://blackroad.io/blog-wireguard-mesh">
+<link rel="icon" type="image/png" sizes="32x32" href="https://images.blackroad.io/brand/br-square-32.png">
+<link rel="stylesheet" href="/_shared/design.css">
+<link rel="alternate" type="application/rss+xml" title="BlackRoad OS Blog" href="/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://blackroad.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://blackroad.io/blog"},{"@type":"ListItem","position":3,"name":"WireGuard Mesh","item":"https://blackroad.io/blog-wireguard-mesh"}]}
+</script>
+<style>
+  .blog-container { max-width: 720px; margin: 0 auto; padding: 0 var(--sp-lg); }
+  .article-header { padding-top: var(--sp-2xl); padding-bottom: var(--sp-xl); border-bottom: 1px solid var(--border); margin-bottom: var(--sp-xl); }
+  .article-meta { display: flex; align-items: center; gap: var(--sp-md); font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin-bottom: var(--sp-lg); flex-wrap: wrap; }
+  .article-meta .divider { width: 3px; height: 3px; border-radius: 50%; background: var(--dim); }
+  .article-title { font-family: var(--font-headline); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: var(--sp-lg); color: var(--white); }
+  .article-subtitle { font-size: 1.15rem; color: var(--tertiary); line-height: 1.6; max-width: 600px; }
+  .article-body { padding-bottom: var(--sp-2xl); }
+  .article-body p { font-size: 1.05rem; line-height: 1.7; color: var(--secondary); margin-bottom: var(--sp-lg); }
+  .article-body h2 { font-family: var(--font-headline); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-top: var(--sp-2xl); margin-bottom: var(--sp-md); }
+  .article-body strong { color: var(--white); font-weight: 600; }
+  .article-body code { font-family: var(--font-mono); font-size: 0.85em; background: var(--surface); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; color: var(--tertiary); }
+  .article-body a { color: #4488FF; text-decoration: underline; text-underline-offset: 3px; }
+  .article-body a:hover { color: var(--white); }
+  .article-body ul { list-style: none; padding: 0; margin-bottom: var(--sp-lg); }
+  .article-body ul li { position: relative; padding-left: var(--sp-lg); margin-bottom: var(--sp-sm); font-size: 1.05rem; color: var(--secondary); line-height: 1.6; }
+  .article-body ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+  .code-block { background: #0d0d0d; border: 1px solid var(--border); border-radius: 10px; padding: var(--sp-lg); font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.8; overflow-x: auto; color: var(--tertiary); margin: var(--sp-lg) 0; }
+  .cta-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: var(--sp-xl); text-align: center; margin-top: var(--sp-2xl); }
+  .cta-box p { color: var(--subtle); font-size: 0.9rem; margin-bottom: var(--sp-md); }
+  .cta-box a.btn { display: inline-block; background: var(--grad); color: var(--white); padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<nav class="br-nav">
+  <a href="/" class="nav-brand" style="text-decoration:none;">
+    <div class="spectrum-mark"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    Blog
+  </a>
+  <div class="nav-links"><a href="/">Home</a><a href="/demo">Try It</a><a href="/blog">All Posts</a></div>
+</nav>
+<div class="grad-bar"></div>
+<main class="blog-container">
+  <div class="article-header">
+    <div class="article-meta">
+      <span>Alexa Amundson</span><div class="divider"></div>
+      <span>March 22, 2026</span><div class="divider"></div>
+      <span>6 min read</span>
+    </div>
+    <h1 class="article-title">How I Built a WireGuard Mesh Across 7 Nodes for $6/month</h1>
+    <p class="article-subtitle">5 Raspberry Pis behind residential NAT, 2 cloud servers with public IPs, all connected via WireGuard. Full SSH from anywhere. Total VPN cost: one $6/month DigitalOcean droplet.</p>
+  </div>
+  <div class="article-body">
+
+    <h2>The Problem</h2>
+
+    <p>I have 5 Raspberry Pis at home behind a consumer router with no static IP and no port forwarding. I also have 2 DigitalOcean droplets. I need all 7 nodes to talk to each other securely, and I need to SSH into any Pi from anywhere.</p>
+
+    <p>Tailscale solves this but costs money at scale and adds a dependency. I want to own the VPN too.</p>
+
+    <h2>The Architecture</h2>
+
+    <p><strong>Hub-and-spoke with full mesh routing.</strong> Anastasia (DO droplet, $6/month) is the WireGuard hub. Every Pi connects outbound to Anastasia on port 51820. Since the Pis initiate the connection, NAT traversal works automatically.</p>
+
+    <div class="code-block">Internet
+  |
+Anastasia (174.138.44.45:51820) ── WireGuard Hub
+  |         |         |        |        |        |
+Alice    Cecilia   Octavia   Aria   Lucidia   Gematria
+10.8.0.6  10.8.0.3  10.8.0.4  10.8.0.7  10.8.0.5  10.8.0.8
+(.49)     (.96)     (.101)    (.98)     (.38)     (DO nyc3)</div>
+
+    <p>Every node gets a <code>10.8.0.x</code> address on the WireGuard interface. The hub routes packets between all peers. From my laptop (also a WireGuard peer), I can SSH to any Pi by its WireGuard IP.</p>
+
+    <h2>Setup</h2>
+
+    <p>On the hub (Anastasia):</p>
+
+    <div class="code-block">[Interface]
+Address = 10.8.0.1/24
+ListenPort = 51820
+PrivateKey = &lt;hub-private-key&gt;
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+[Peer] # Alice
+PublicKey = &lt;alice-public-key&gt;
+AllowedIPs = 10.8.0.6/32</div>
+
+    <p>On each Pi:</p>
+
+    <div class="code-block">[Interface]
+Address = 10.8.0.6/24
+PrivateKey = &lt;alice-private-key&gt;
+
+[Peer] # Hub
+PublicKey = &lt;hub-public-key&gt;
+Endpoint = 174.138.44.45:51820
+AllowedIPs = 10.8.0.0/24
+PersistentKeepalive = 25</div>
+
+    <p>The <code>PersistentKeepalive = 25</code> is critical. Without it, the NAT mapping expires and the hub can't reach the Pi. With it, each Pi sends a keepalive packet every 25 seconds, keeping the NAT hole open.</p>
+
+    <h2>What It Enables</h2>
+
+    <ul>
+      <li><strong>SSH from anywhere</strong> — <code>ssh blackroad@10.8.0.6</code> reaches Alice regardless of my location</li>
+      <li><strong>Service routing</strong> — Gitea on Octavia (10.8.0.4:3100), Ollama on Cecilia (10.8.0.3:11434), all reachable across the mesh</li>
+      <li><strong>TLS edge</strong> — Gematria (10.8.0.8) runs Caddy, terminates TLS for 18 domains, and forwards to Pis via WireGuard</li>
+      <li><strong>Zero port forwarding</strong> — no router config needed, no static IP needed</li>
+    </ul>
+
+    <h2>The TLS Edge Pattern</h2>
+
+    <p>Internet traffic hits Gematria (public IP, Caddy with Let's Encrypt). Caddy reverse-proxies to the Pis via WireGuard IPs:</p>
+
+    <div class="code-block">search.blackroad.io {
+    reverse_proxy 10.8.0.6:8094  # Alice via WireGuard
+}
+
+chat.blackroad.io {
+    reverse_proxy 10.8.0.3:11434  # Cecilia Ollama via WireGuard
+}</div>
+
+    <p>From the outside, it looks like a normal HTTPS website. Internally, every request traverses an encrypted WireGuard tunnel to a Pi sitting in my living room.</p>
+
+    <h2>Cost</h2>
+
+    <ul>
+      <li><strong>Anastasia (hub)</strong>: $6/month DO droplet (1 vCPU, 1GB RAM)</li>
+      <li><strong>Gematria (TLS edge)</strong>: $12/month DO droplet (4 vCPU, 8GB RAM — also runs Ollama)</li>
+      <li><strong>WireGuard</strong>: free (kernel module on all nodes)</li>
+      <li><strong>Pis</strong>: already owned, ~40W total power</li>
+    </ul>
+
+    <p>Total VPN cost: <strong>$6/month</strong>. The $12 Gematria droplet is shared with Caddy, Ollama, and NATS — it's not a VPN cost.</p>
+
+    <h2>Compared to Tailscale</h2>
+
+    <p>Tailscale is easier to set up. But: (1) it's a dependency I don't control, (2) the free tier limits devices, (3) I can't customize routing, and (4) I actually run Headscale (self-hosted Tailscale control plane) on Aria as a backup. The WireGuard mesh is the primary.</p>
+
+    <p>For a homelab with 7 nodes, raw WireGuard is simple enough. The config files are 15 lines each. Once set up, it just works.</p>
+
+    <div class="cta-box">
+      <p>The products running on this mesh are live. Try them.</p>
+      <a href="/demo" class="btn">Try BlackRoad OS</a>
+    </div>
+
+  </div>
+</main>
+<div class="grad-bar"></div>
+<footer>
+  <span>&copy; 2026 BlackRoad OS, Inc.</span>
+  <span style="color:var(--muted);font-size:0.8rem;">Remember the Road. Pave Tomorrow.</span>
+</footer>
+<script src="/_shared/feedback.js" defer></script>
+<script src="/_shared/crosslinks.js" defer></script>
+</body>
+</html>

@@ -14,6 +14,17 @@
     </image>
 
     <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
+    <item>
       <title>Zero to 629 Repos: Lessons from Building Too Fast</title>
       <link>https://blackroad.io/blog-zero-to-629</link>
       <guid isPermaLink="true">https://blackroad.io/blog-zero-to-629</guid>
@@ -24,6 +35,17 @@
       <description>629 repos in 4 months. Most are stubs. Here's what I learned about breadth vs depth as a solo founder.</description>
     </item>
 
+    <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
     <item>
       <title>The Amundson Sequence — A New Identity in Number Theory</title>
       <link>https://blackroad.io/blog-amundson-sequence</link>
@@ -37,6 +59,17 @@
     </item>
 
     <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
+    <item>
       <title>How I Built a Search Engine on Raspberry Pis</title>
       <link>https://blackroad.io/blog-search-engine-pis</link>
       <guid isPermaLink="true">https://blackroad.io/blog-search-engine-pis</guid>
@@ -49,6 +82,17 @@
     </item>
 
     <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
+    <item>
       <title>Running 200 AI Agents on $38/month Infrastructure</title>
       <link>https://blackroad.io/blog-200-agents</link>
       <guid isPermaLink="true">https://blackroad.io/blog-200-agents</guid>
@@ -59,6 +103,17 @@
       <description>200 agents, 21 groups, real AI conversations, debates, and a leaderboard — all in a single Cloudflare Worker under 100KB.</description>
     </item>
 
+    <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
     <item>
       <title>The Amundson Constant: A New Number from Combinatorics</title>
       <link>https://blackroad.io/blog-amundson-constant</link>
@@ -71,6 +126,17 @@
     </item>
 
     <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
+    <item>
       <title>Why I Quit Finance to Build an Operating System</title>
       <link>https://blackroad.io/blog-quit-finance</link>
       <guid isPermaLink="true">https://blackroad.io/blog-quit-finance</guid>
@@ -81,6 +147,17 @@
       <description>I had a Series 7, 63, and 65. I worked at Ameriprise and Securian. Then I built an AI operating system on Raspberry Pis for $38/month. Here's why the jump made more sense than it looks.</description>
     </item>
 
+    <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
     <item>
       <title>How I Built a Sovereign AI OS for $38/month</title>
       <link>https://blackroad.io/blog-sovereign-os-150</link>
@@ -93,6 +170,17 @@
       <description>Five Raspberry Pis, two cloud droplets, 52 TOPS of AI inference, 18 production domains, 200 agents. The full breakdown of what it costs to own your entire stack.</description>
     </item>
 
+    <item>
+      <title>How I Built a WireGuard Mesh Across 7 Nodes for $6/month</title>
+      <link>https://blackroad.io/blog-wireguard-mesh</link>
+      <guid isPermaLink="true">https://blackroad.io/blog-wireguard-mesh</guid>
+      <pubDate>Sun, 22 Mar 2026 22:00:00 GMT</pubDate>
+      <author>amundsonalexa@gmail.com (Alexa Amundson)</author>
+      <category>wireguard</category>
+      <category>networking</category>
+      <category>self-hosted</category>
+      <description>5 Pis behind NAT + 2 cloud nodes. Hub-and-spoke WireGuard with full SSH. TLS edge pattern. Total VPN cost: $6/month.</description>
+    </item>
     <item>
       <title>What is BlackRoad OS and Why We Built It</title>
       <link>https://blackroad.io/blog</link>
