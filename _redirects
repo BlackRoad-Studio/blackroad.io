@@ -33,3 +33,5 @@
 /composer   /composer.html   200
 /miner      /blockchain-dynamic.html 200
 /spawn      /agents-dynamic.html 200
+/demo       /demo.html           200
+/try        /demo.html           200
