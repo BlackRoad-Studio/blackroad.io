@@ -117,34 +117,29 @@ code, pre, .mono {
 
 /* ── Gradient Bar ── */
 .grad-bar {
-  height: 1px;
+  height: 4px;
   background: var(--grad);
 }
 
-/* ── Gradient Text ── */
+/* ── NO gradient text — text is ALWAYS white/gray ── */
 .grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--white);
 }
 
-/* ── Spectrum Mark (Logo) ── */
+/* ── Logo Mark (circles + squares) ── */
 .spectrum-mark {
   display: flex;
-  gap: 2px;
+  gap: 4px;
+  align-items: center;
 }
-.spectrum-mark span {
-  width: 3px;
-  height: 14px;
-  border-radius: 1.5px;
-}
-.spectrum-mark span:nth-child(1) { background: var(--ember); }
-.spectrum-mark span:nth-child(2) { background: var(--rose); }
-.spectrum-mark span:nth-child(3) { background: var(--magenta); }
-.spectrum-mark span:nth-child(4) { background: var(--violet); }
-.spectrum-mark span:nth-child(5) { background: var(--azure); }
-.spectrum-mark span:nth-child(6) { background: var(--cyan); }
+.spectrum-mark .c { width: 8px; height: 8px; border-radius: 50%; }
+.spectrum-mark .s { width: 7px; height: 7px; border-radius: 1px; }
+.spectrum-mark .c:nth-child(1), .spectrum-mark span:nth-child(1) { background: var(--ember); }
+.spectrum-mark .s:nth-child(2), .spectrum-mark span:nth-child(2) { background: var(--rose); }
+.spectrum-mark .c:nth-child(3), .spectrum-mark span:nth-child(3) { background: var(--magenta); }
+.spectrum-mark .s:nth-child(4), .spectrum-mark span:nth-child(4) { background: var(--violet); }
+.spectrum-mark .c:nth-child(5), .spectrum-mark span:nth-child(5) { background: var(--azure); }
+.spectrum-mark .s:nth-child(6), .spectrum-mark span:nth-child(6) { background: var(--cyan); }
 
 /* ── Cards ── */
 .card {

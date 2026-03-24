@@ -1,16 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://blackroad.io/sitemap.xml
-Sitemap: https://blackroad.io/sitemap-index.xml
-
-# Slow down aggressive crawlers
-User-agent: AhrefsBot
-Crawl-delay: 10
-
-User-agent: SemrushBot
-Crawl-delay: 10
-
-User-agent: MJ12bot
-Crawl-delay: 10
-
-# BlackRoad OS, Inc. — Pave Tomorrow.

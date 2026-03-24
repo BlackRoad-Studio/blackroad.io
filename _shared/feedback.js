@@ -12,7 +12,7 @@
     '#br-feedback-panel textarea:focus{outline:none;border-color:#525252}',
     '#br-feedback-panel .fb-title{font-size:0.8rem;font-weight:600;color:#f5f5f5;margin-bottom:8px}',
     '#br-feedback-panel .fb-hint{font-size:0.7rem;color:#525252;margin-bottom:10px}',
-    '#br-feedback-send{background:linear-gradient(90deg,#FF6B2B,#FF2255,#CC00AA,#8844FF,#4488FF,#00D4FF);color:#f5f5f5;border:none;padding:8px 16px;border-radius:6px;font-weight:700;font-size:0.8rem;cursor:pointer;margin-top:8px;width:100%}',
+    '#br-feedback-send{background:#f5f5f5;color:#000;border:none;padding:8px 16px;border-radius:6px;font-weight:700;font-size:0.8rem;cursor:pointer;margin-top:8px;width:100%;font-family:"Space Grotesk",sans-serif}',
     '#br-feedback-send:hover{opacity:0.9}',
     '#br-feedback-send:disabled{opacity:0.4;cursor:default}',
     '#br-feedback-status{font-size:0.7rem;color:#525252;margin-top:6px;text-align:center}'
