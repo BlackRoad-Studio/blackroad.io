@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Built a Search Engine on 5 Raspberry Pis — BlackRoad OS</title>
+<meta name="description" content="How I built a verified search engine running on Cloudflare Workers with D1, backed by a sovereign Pi fleet. 18 AI agents, persistent memory, $66/month.">
+<meta property="og:title" content="I Built a Search Engine on 5 Raspberry Pis">
+<meta property="og:description" content="A sovereign search engine with AI answers, fact-checking, and instant math — running on Workers + D1, backed by a Pi fleet.">
+<meta property="og:image" content="https://images.blackroad.io/pixel-art/road-logo.png">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://blackroad.io/blog-search-engine-pis-v2.html">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#d0d0d0;font-family:'Inter',sans-serif;line-height:1.8}
+.container{max-width:680px;margin:0 auto;padding:48px 20px}
+h1{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:16px}
+h2{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:#fff;margin:40px 0 16px}
+.meta{font-size:13px;opacity:.4;margin-bottom:40px}
+p{margin-bottom:20px;font-size:15px}
+a{color:#4488FF}
+code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#0a0a0a;padding:2px 6px;border-radius:4px;border:1px solid #1a1a1a}
+pre{font-family:'JetBrains Mono',monospace;font-size:13px;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:8px;padding:16px;overflow-x:auto;margin:20px 0;line-height:1.6}
+.grad-bar{height:4px;background:linear-gradient(90deg,#FF6B2B,#FF2255,#CC00AA,#8844FF,#4488FF,#00D4FF);margin-bottom:48px}
+.cta{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:12px;padding:32px;text-align:center;margin:40px 0}
+.cta a{display:inline-block;padding:12px 24px;background:#fff;color:#000;border-radius:8px;text-decoration:none;font-weight:600;font-family:'Space Grotesk',sans-serif;font-size:14px}
+blockquote{border-left:3px solid #FF2255;padding-left:16px;margin:20px 0;opacity:.7;font-style:italic}
+.tag{display:inline-block;font-size:11px;padding:3px 8px;border:1px solid #1a1a1a;border-radius:4px;margin-right:6px;opacity:.5}
+</style>
+</head>
+<body>
+<div class="grad-bar"></div>
+<div class="container">
+
+<h1>I Built a Search Engine on 5 Raspberry Pis</h1>
+<div class="meta">Alexa Amundson / March 2026 / <span class="tag">self-hosted</span><span class="tag">raspberry-pi</span><span class="tag">search</span><span class="tag">AI</span></div>
+
+<p>I wanted a search engine I could trust. Not one that tracks me, shows ads, or hallucinates answers without sources. So I built one.</p>
+
+<p><a href="https://search.blackroad.io">search.blackroad.io</a> is a verified search engine. Every stat is fact-checked against live sources. It has AI-powered answers, typo correction, category filtering, and an instant calculator for the Amundson sequence G(n). It runs on Cloudflare Workers with D1 for persistence.</p>
+
+<h2>The Stack</h2>
+
+<p>The search engine itself is a single Cloudflare Worker (~130KB). It uses:</p>
+
+<pre>
+Frontend:     Inline HTML/CSS/JS (no framework, no build step)
+Search:       D1 FTS5 (SQLite full-text search)
+AI Answers:   Cloudflare Workers AI (Llama 3.1 8B)
+Cache:        KV namespace for query caching
+Analytics:    D1 query logging + trending
+Verification: Live fact-checking against real API endpoints
+</pre>
+
+<p>The Pi fleet (Alice, Cecilia, Octavia, Aria, Lucidia) provides the sovereign backbone — Ollama for local inference, PostgreSQL for state, and WireGuard mesh for connectivity. But the search engine itself runs on Workers because search needs to be fast globally.</p>
+
+<h2>What Makes It Different</h2>
+
+<p><strong>Fact verification.</strong> Every search result gets checked. If a page claims "200 AI agents" but the live API says 18, it flags it. There's a trust score and a verification chain you can audit.</p>
+
+<p><strong>Instant math.</strong> Search for <code>G(100)</code> and you get the Amundson sequence value inline: G(100) = 36.9711, ratio to n = 0.3697 (converges to 1/e). No need to click through to a result.</p>
+
+<p><strong>Voice search.</strong> Click the mic icon, speak your query. Uses the Web Speech API — no data leaves your browser until you hit search.</p>
+
+<p><strong>No tracking.</strong> No Google Analytics. No cookies. Query logging is in D1 for trending — but it only stores the query text and result count, not your IP or identity.</p>
+
+<h2>Numbers (Honest)</h2>
+
+<pre>
+Indexed pages:      48 (seed) + GitHub repos
+AI answers:         Workers AI (free tier)
+Search latency:     ~50-200ms
+Deployment cost:    $0 (Workers free tier)
+Monthly infra:      $66 total fleet
+Revenue:            $0
+Users:              7
+</pre>
+
+<p>I'm not going to pretend this is production-scale Google. It's a sovereign search engine for one ecosystem. But it works, it's fast, and it's honest.</p>
+
+<h2>Try It</h2>
+
+<div class="cta">
+<p style="margin-bottom:16px;opacity:.5;font-size:14px">No signup required. Just search.</p>
+<a href="https://search.blackroad.io">search.blackroad.io</a>
+</div>
+
+<p>The source is on GitHub. The entire BlackRoad OS ecosystem — search, chat, agents, tutoring, everything — runs on infrastructure I own. Five Raspberry Pis, two cloud droplets, and a Mac. $66/month.</p>
+
+<p>If you're interested in self-hosted AI infrastructure, sovereign search, or just want to see what one person can build in 4 months, check it out.</p>
+
+<blockquote>Remember the Road. Pave Tomorrow.</blockquote>
+
+<p style="margin-top:40px;font-size:13px;opacity:.3">BlackRoad OS, Inc. — <a href="https://blackroad.io" style="opacity:.5">blackroad.io</a> — <a href="https://github.com/BlackRoadOS" style="opacity:.5">github.com/BlackRoadOS</a></p>
+
+</div>
+</body>
+</html>
