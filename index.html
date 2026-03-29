@@ -11,14 +11,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://images.blackroad.io/pixel-art/road-logo.png">
 <meta name="twitter:title" content="BlackRoad OS — Sovereign AI Infrastructure">
-<meta name="twitter:description" content="BlackRoad OS — 200 AI agents running on sovereign Raspberry Pi hardware. Self-hosted Git, AI inference, DNS, chat, and search for $38/month. Try it free.">
+<meta name="twitter:description" content="BlackRoad OS — Sovereign AI operating system on Raspberry Pi hardware. 18 agents with persistent memory. Self-hosted search, chat, and AI inference. Try it free.">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#000000">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="canonical" href="https://blackroad.io/">
-<meta name="description" content="BlackRoad OS — 200 AI agents running on sovereign Raspberry Pi hardware. Self-hosted Git, AI inference, DNS, chat, and search for $38/month. Try it free.">
+<meta name="description" content="BlackRoad OS — Sovereign AI operating system on Raspberry Pi hardware. 18 agents with persistent memory. Self-hosted search, chat, and AI inference. Try it free.">
 <meta property="og:title" content="BlackRoad OS — Sovereign AI Infrastructure">
-<meta property="og:description" content="BlackRoad OS — 200 AI agents running on sovereign Raspberry Pi hardware. Self-hosted Git, AI inference, DNS, chat, and search for $38/month. Try it free.">
+<meta property="og:description" content="BlackRoad OS — Sovereign AI operating system on Raspberry Pi hardware. 18 agents with persistent memory. Self-hosted search, chat, and AI inference. Try it free.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://blackroad.io">
 <meta property="og:site_name" content="BlackRoad OS">
@@ -416,7 +416,7 @@ footer{border-top:1px solid var(--border);padding:48px;display:flex;justify-cont
   </form>
   <div class="hero-cta">
     <a href="#" onclick="openPanel('chat','Chat','https://chat.blackroad.io');return false" class="btn-lg btn-lg-solid">Chat with AI</a>
-    <a href="#" onclick="openPanel('agents','Agents','https://roundtrip.blackroad.io');return false" class="btn-lg btn-lg-outline">Meet 200 Agents</a>
+    <a href="#" onclick="openPanel('agents','Agents','https://roundtrip.blackroad.io');return false" class="btn-lg btn-lg-outline">Meet the Agents</a>
     <a href="https://github.com/BlackRoad-OS-Inc" target="_blank" class="btn-lg btn-lg-outline">Source Code</a>
   </div>
 </section>
@@ -522,7 +522,7 @@ footer{border-top:1px solid var(--border);padding:48px;display:flex;justify-cont
     <div class="journey-prompt-dot" style="background:#CC00AA"></div>
     <div class="journey-prompt-text">
       <div class="journey-prompt-title">Chat with an AI agent</div>
-      <div class="journey-prompt-sub">200 agents with persistent memory. Ask anything. They remember.</div>
+      <div class="journey-prompt-sub">18 agents with persistent memory. Ask anything. They remember.</div>
     </div>
     <button class="journey-prompt-btn" onclick="journeyGo('chat');event.stopPropagation()">Chat</button>
   </div>
@@ -577,7 +577,7 @@ footer{border-top:1px solid var(--border);padding:48px;display:flex;justify-cont
   <div class="journey-prompt-inner" onclick="journeyGo('agents')" style="cursor:pointer">
     <div class="journey-prompt-dot" style="background:#8844FF"></div>
     <div class="journey-prompt-text">
-      <div class="journey-prompt-title">Meet all 200 agents</div>
+      <div class="journey-prompt-title">Meet the fleet agents</div>
       <div class="journey-prompt-sub">Coding, ops, AI, creative, research, education — browse the full roster.</div>
     </div>
     <button class="journey-prompt-btn" onclick="journeyGo('agents');event.stopPropagation()">Browse Agents</button>
@@ -714,7 +714,7 @@ footer{border-top:1px solid var(--border);padding:48px;display:flex;justify-cont
     <p>BlackRoad OS is proprietary and powerful. Your AI. Your hardware. Your rules. Any use of this multi-agent architecture requires attribution to BlackRoad OS, Inc.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px">
       <a href="#" onclick="openPanel('search','Search','https://search.blackroad.io');return false" class="btn-lg btn-lg-solid">Try it Free</a>
-      <a href="#" onclick="openPanel('agents','Agents','https://roundtrip.blackroad.io');return false" class="btn-lg btn-lg-outline">Meet 200 Agents</a>
+      <a href="#" onclick="openPanel('agents','Agents','https://roundtrip.blackroad.io');return false" class="btn-lg btn-lg-outline">Meet the Agents</a>
     </div>
     <!-- Journey badges -->
     <div id="badgeSection" style="margin-bottom:24px">
@@ -826,8 +826,8 @@ var STOPS = ['land','search','chat','agents','fleet','social','signup'];
 var STOP_CONFIG = {
   land:   {title:'You landed on the road',sub:'Scroll down to explore, or search something.',panel:null},
   search: {title:'Try searching for something',sub:'AI answers from 7,760+ pages. Ask anything.',panel:'search',url:'https://search.blackroad.io'},
-  chat:   {title:'Chat with an AI agent',sub:'200 agents with persistent memory. They remember you.',panel:'chat',url:'https://chat.blackroad.io'},
-  agents: {title:'Meet all 200 agents',sub:'Coding, ops, AI, creative, research — browse the roster.',panel:'agents',url:'https://roundtrip.blackroad.io'},
+  chat:   {title:'Chat with an AI agent',sub:'18 agents with persistent memory. They remember you.',panel:'chat',url:'https://chat.blackroad.io'},
+  agents: {title:'Meet the fleet agents',sub:'Coding, ops, AI, creative, research — browse the roster.',panel:'agents',url:'https://roundtrip.blackroad.io'},
   fleet:  {title:'See the fleet running live',sub:'5 Raspberry Pis. 52 TOPS. Real hardware, real-time.',panel:'status',url:'https://blackroad.systems'},
   social: {title:'Join the conversation',sub:'BackRoad social. No vanity metrics. No addiction mechanics.',panel:'social',url:'https://social.blackroad.io'},
   signup: {title:'Create your account',sub:'Get persistent memory. Your agents remember you.',panel:'auth',url:'https://auth.blackroad.io'}
@@ -1007,7 +1007,7 @@ var RECO_MAP = {
     {title:'Read the blog',sub:'How we built a search engine on Pis.',url:'/blog-search-engine-pis',color:'#FF6B2B'}
   ],
   chat: [
-    {title:'Meet the full roster',sub:'200 agents across 21 groups.',action:'agents',color:'#8844FF'},
+    {title:'Meet the full roster',sub:'18 agents across the fleet.',action:'agents',color:'#8844FF'},
     {title:'BackRoad Social',sub:'Social without the sickness.',action:'social',color:'#FF2255'},
     {title:'See who you talked to',sub:'Live fleet — check their hardware.',action:'fleet',color:'#00D4FF'}
   ],
